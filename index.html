@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,viewport-fit=cover"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<title>Love Shot ♡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lato:wght@300;400;700&family=Dancing+Script:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<!-- Ambient layers -->
+<div id="bg-layer" aria-hidden="true"></div>
+<div id="hearts-back" aria-hidden="true"></div>
+<canvas id="gameCanvas"></canvas>
+<div id="hearts-front" aria-hidden="true"></div>
+<div id="cupid-wrap" aria-hidden="true"><div id="cupid">💘</div></div>
+
+<!-- HUD -->
+<div id="hud">
+  <div id="hud-left">
+    <div class="hud-card">
+      <span class="hud-label">💕 hits</span>
+      <span id="score" class="hud-val">0</span>
+    </div>
+    <div class="hud-card">
+      <span class="hud-label">✨ coins</span>
+      <span id="coins" class="hud-val">0</span>
+    </div>
+  </div>
+  <div id="hud-center">
+    <div id="game-title">Love Shot</div>
+    <div id="level-badge">Nível <span id="level-num">1</span></div>
+  </div>
+  <div id="hud-right">
+    <div class="hud-card">
+      <span class="hud-label">🔥 streak</span>
+      <span id="streak" class="hud-val">0</span>
+    </div>
+    <button id="shop-btn" aria-label="Loja">🛍️</button>
+  </div>
+</div>
+
+<!-- Power bar -->
+<div id="power-bar-wrap" aria-hidden="true">
+  <div id="power-bar-track"><div id="power-bar-fill"></div></div>
+  <div id="power-label">⚡ Power Shot!</div>
+</div>
+
+<!-- Combo popup -->
+<div id="combo-popup" role="status" aria-live="polite"></div>
+
+<!-- Message overlay -->
+<div id="msg-overlay">
+  <div id="msg-inner" aria-live="polite">
+    <div id="msg-icon"></div>
+    <div id="msg-text-wrap">
+      <div id="msg-text"></div>
+      <div id="msg-translation"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Heartbreak -->
+<div id="heartbreak-overlay" aria-hidden="true">
+  <div id="heartbreak-icon">💔</div>
+  <div id="heartbreak-text">Tenho tanta saudade...</div>
+</div>
+
+<!-- SHOP MODAL -->
+<div id="shop-modal" role="dialog" aria-modal="true" aria-label="Love Shop">
+  <div id="shop-panel">
+    <div id="shop-drag-handle" aria-hidden="true"></div>
+    <button id="shop-close" aria-label="Fechar loja">✕</button>
+    <div id="shop-header">
+      <div id="shop-title">🌸 Love Shop 🌸</div>
+      <div id="shop-coins-display">✨ <span id="shop-coins">0</span> coins</div>
+    </div>
+    <div id="shop-tabs">
+      <button class="tab-btn active" data-tab="skins">🎯 Alvos</button>
+      <button class="tab-btn" data-tab="effects">💥 Efeitos</button>
+      <button class="tab-btn" data-tab="trails">🌸 Rastro</button>
+      <button class="tab-btn" data-tab="bows">🏹 Arco</button>
+    </div>
+    <div id="shop-items"></div>
+  </div>
+</div>
+
+<!-- Level-up -->
+<div id="levelup-overlay" aria-live="assertive">
+  <div id="levelup-inner">
+    <div id="levelup-icon">🌟</div>
+    <div id="levelup-title">Nível <span id="levelup-num">2</span>!</div>
+    <div id="levelup-sub">O amor cresce mais forte ♡</div>
+  </div>
+</div>
+
+<!-- MAZE EASTER EGG -->
+<div id="maze-overlay" aria-hidden="true">
+  <canvas id="mazeCanvas"></canvas>
+  <div id="maze-hud">
+    <div id="maze-title">🌹 Labirinto do Amor 🌹</div>
+    <div id="maze-hint">Encontra o coração no centro ♡</div>
+  </div>
+  <div id="maze-controls">
+    <div id="maze-dpad">
+      <button class="dpad-btn" id="dpad-up"   aria-label="Cima">▲</button>
+      <button class="dpad-btn" id="dpad-left"  aria-label="Esquerda">◀</button>
+      <button class="dpad-btn" id="dpad-right" aria-label="Direita">▶</button>
+      <button class="dpad-btn" id="dpad-down"  aria-label="Baixo">▼</button>
+    </div>
+  </div>
+</div>
+
+<!-- Love letter (maze completion) -->
+<div id="love-letter-overlay" aria-live="polite">
+  <div id="love-letter-panel">
+    <div id="love-letter-deco" aria-hidden="true">♡ · · · ♡</div>
+    <div id="love-letter-icon">💌</div>
+    <div id="love-letter-title">Uma mensagem do coração</div>
+    <div id="love-letter-text"></div>
+    <div id="love-letter-sig">— com todo o amor do mundo 🌹</div>
+    <button id="love-letter-back">← Voltar ao jogo</button>
+    <div id="love-letter-deco2" aria-hidden="true">· · ♡ · ·</div>
+  </div>
+</div>
+
+<!-- Intro -->
+<div id="intro-screen">
+  <div id="intro-content">
+    <div class="intro-deco" aria-hidden="true">✦ ♡ ✦ ♡ ✦</div>
+    <h1 id="intro-title">Love<br><em>Shot</em></h1>
+    <p id="intro-sub">Dispara a flecha do teu coração<br>e deixa o amor voar.</p>
+    <div id="intro-features">
+      <span>🏹 Mira</span><span>💕 Acerta</span><span>✨ Evolui</span><span>🛍️ Compra</span>
+    </div>
+    <p id="intro-secret">✦ Dispara para a esquerda para descobrir um segredo ✦</p>
+    <button id="start-btn">Começar ♡</button>
+    <div id="intro-hint">← arrasta para mirar · larga para disparar</div>
+    <div class="intro-deco" aria-hidden="true">· · ♡ · ·</div>
+  </div>
+</div>
+
+<script src="game.js"></script>
+</body>
+</html>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
